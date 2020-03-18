@@ -52,6 +52,33 @@ public class Grid {
 		//this.run();
 	}
 	
+	private void revealAll() {
+		for(int i = 0; i < grid.length; i++) {
+			for(int j = 0; j < grid[i].length; j++) {
+				if(grid[i][j].getState() > 3)
+					grid[i][j].setState(grid[i][j].getState() - 2);
+				grid[i][j].reveal();
+			}
+		}
+	}
+	
+	public boolean revealZeros() {
+		boolean retur = false;
+		for(int i = 0; i < grid.length; i++) {
+			for(int j = 0; j < grid[i].length; j++) {
+				if(grid[i][j].getState() == 0 && grid[i][j].getbombs() == 0) {
+					for(GridSpace a: getNeighbors(i, j)) {
+						if(a.getState() == 2) {
+							retur = true;
+							a.reveal();
+						}
+					}
+				}
+			}
+		}
+		return retur;
+	}
+	
 	public void reveal(int x, int y) {
 		if(y < 0 || y > grid.length - 1 || x < 0 || x > grid[0].length - 1) {
 			System.out.println("Coordinates out of bounds");
@@ -60,16 +87,20 @@ public class Grid {
 			grid[y][x].reveal();
 			if(grid[y][x].getState() == 1) {
 				System.out.println("YOU LOSE :(");
-				for(int i = 0; i < grid.length; i++) {
-					for(int j = 0; j < grid[i].length; j++) {
-						if(grid[i][j].getState() > 3)
-							grid[i][j].setState(grid[i][j].getState() - 2);
-						grid[i][j].reveal();
-					}
-				}
+				revealAll();
 				//this.show();
 				//return;
 			}
+//			} else if(grid[y][x].getState() == 0 && grid[y][x].getbombs() == 0) {
+//				reveal(x + 1, y + 1);
+//				reveal(x + 1, y);
+//				reveal(x + 1, y - 1);
+//				reveal(x, y + 1);
+//				reveal(x, y - 1);
+//				reveal(x - 1, y + 1);
+//				reveal(x - 1, y);
+//				reveal(x - 1, y - 1);
+//			}
 			//this.show();
 		}
 		//this.run();
@@ -203,6 +234,26 @@ public class Grid {
 	
 	public int getBombs() {
 		return bombsLeft;
+	}
+	
+	public GridSpace[] getNeighbors(int x, int y) {
+		int len = 0;
+		for(int i = -1; i < 2; i++) {
+			for(int j = -1; j < 2; j++) {
+				if(!(i == j && i == 0 || x + i < 0 || y + j < 0 || y + j > grid.length - 1 || x + i > grid[0].length - 1))
+					len++;
+			}
+		}
+		if(len == 0)
+			return new GridSpace[0];
+		GridSpace[] a = new GridSpace[len];
+		for(int i = -1; i < 2; i++) {
+			for(int j = -1; j < 2; j++) {
+				if(!(i == j && i == 0 || x + i < 0 || y + j < 0 || y + j > grid.length - 1 || x + i > grid[0].length - 1))
+					a[--len] = grid[x+i][y+j];
+			}
+		}
+		return a;
 	}
 	
 	public void show() {

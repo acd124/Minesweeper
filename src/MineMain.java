@@ -84,11 +84,13 @@ public class MineMain extends JApplet implements MouseListener{
 		System.out.println("click " + e.getButton() +  " " + 
 		e.getX() + " " + e.getY());
 		if(e.getButton() == 1) {
-			//if(!(e.getX() < 20 || e.getX() > getWidth() - 20 || e.getY() < 20 || e.getY() > getHeight() - 20))
-			G.reveal((e.getX() - 20)/((getWidth() - 40)/G.getGrid()[0].length), (e.getY() - 20)/((getHeight() - 40)/G.getGrid().length));
+			if(!(e.getX() < 20 || e.getX() > getWidth() - 20 || e.getY() < 20 || e.getY() > getHeight() - 20))
+				G.reveal((e.getX() - 20)/((getWidth() - 40)/G.getGrid()[0].length), (e.getY() - 20)/((getHeight() - 40)/G.getGrid().length));
+			while(G.revealZeros()) {
+			}
 		} else if(e.getButton() == 3) {
-			//if(!(e.getX() < 20 || e.getX() > getWidth() - 20 || e.getY() < 20 || e.getY() > getHeight() - 20))
-			G.flag((e.getX() - 20)/((getWidth() - 40)/G.getGrid()[0].length), (e.getY() - 20)/((getHeight() - 40)/G.getGrid().length));
+			if(!(e.getX() < 20 || e.getX() > getWidth() - 20 || e.getY() < 20 || e.getY() > getHeight() - 20))
+				G.flag((e.getX() - 20)/((getWidth() - 40)/G.getGrid()[0].length), (e.getY() - 20)/((getHeight() - 40)/G.getGrid().length));
 		}
 		repaint();
 	}
