@@ -85,7 +85,6 @@ public class MineMain extends JApplet implements MouseListener, KeyListener, Mou
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
 		System.out.println("click " + e.getButton() +  " " + 
 		e.getX() + " " + e.getY());
 		if(e.getButton() == 1) {
@@ -138,7 +137,6 @@ public class MineMain extends JApplet implements MouseListener, KeyListener, Mou
 
 	@Override
 	public void keyTyped(KeyEvent c) {
-		// TODO Auto-generated method stub
 		//Point e = MouseInfo.getPointerInfo().getLocation();
 		if((c.getKeyChar() + "").equals(" ")) {
 			System.out.println("space" + " " + mouseX + " " + mouseY);
@@ -164,16 +162,14 @@ public class MineMain extends JApplet implements MouseListener, KeyListener, Mou
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		mouseX = e.getX();
+		mouseY = e.getY();
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
 		mouseX = e.getX();
 		mouseY = e.getY();
-		//System.out.println(mouseX + " " + mouseY);
 	}
 
 }
