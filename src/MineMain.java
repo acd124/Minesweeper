@@ -3,9 +3,12 @@ import javax.swing.JApplet;
 import java.awt.*;
 import java.awt.event.*;
 
-public class MineMain extends JApplet implements MouseListener{
+public class MineMain extends JApplet implements MouseListener, KeyListener, MouseMotionListener{
 
 	Grid G = new Grid(25, 25, 99);
+	int mouseX;
+	int mouseY;
+	
 	/**
 	 * @param args
 	 */
@@ -24,6 +27,8 @@ public class MineMain extends JApplet implements MouseListener{
 		setBackground(Color.black);
 		
 		addMouseListener(this);
+		addKeyListener(this);
+		addMouseMotionListener(this);
 		
 		repaint();
 	}
@@ -117,6 +122,58 @@ public class MineMain extends JApplet implements MouseListener{
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent c) {
+		// TODO Auto-generated method stub
+		//Point e = MouseInfo.getPointerInfo().getLocation();
+		if((c.getKeyChar() + "").equals(" ")) {
+			System.out.println("space" + " " + mouseX + " " + mouseY);
+			if(!(mouseX < 20 || mouseX > getWidth() - 20 || mouseY < 20 || mouseY > getHeight() - 20)) {//not out of bounds
+				if(G.get((mouseX - 20)/((getWidth() - 40)/G.getGrid()[0].length), (mouseY - 20)/((getHeight() - 40)/G.getGrid().length)).getState() > 1) {//not reveal yet
+					G.flag((mouseX - 20)/((getWidth() - 40)/G.getGrid()[0].length), (mouseY - 20)/((getHeight() - 40)/G.getGrid().length));//flag it
+				} else if(G.get((mouseX - 20)/((getWidth() - 40)/G.getGrid()[0].length), (mouseY - 20)/((getHeight() - 40)/G.getGrid().length)).getState() == 0 &&//it's been revealed
+						G.getNeighborflags((mouseX - 20)/((getWidth() - 40)/G.getGrid()[0].length), (mouseY - 20)/((getHeight() - 40)/G.getGrid().length)) == //neighborflags
+								G.get((mouseX - 20)/((getWidth() - 40)/G.getGrid()[0].length), (mouseY - 20)/((getHeight() - 40)/G.getGrid().length)).getbombs()){ //same as num bombs
+					for(GridSpace u : G.getNeighbors((mouseX - 20)/((getWidth() - 40)/G.getGrid()[0].length), (mouseY - 20)/((getHeight() - 40)/G.getGrid().length))) { //reveal all neighbors
+						G.reveal(u.getX(), u.getY());
+						//System.out.println(u.getX() + " " + u.getY());
+						//u.reveal();
+					}
+				}
+				while(G.revealZeros()) { }
+			}
+		} else if((c.getKeyChar() + "").equals("r")) {
+			G = new Grid(25, 25, 99);
+		}
+		repaint();
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+		mouseX = e.getX();
+		mouseY = e.getY();
+		//System.out.println(mouseX + " " + mouseY);
 	}
 
 }

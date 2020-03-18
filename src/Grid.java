@@ -52,6 +52,19 @@ public class Grid {
 		//this.run();
 	}
 	
+	public GridSpace get(int x, int y) {
+		if(y < 0 || y > grid.length - 1 || x < 0 || x > grid[0].length - 1) {
+			System.out.println("Coordinates out of bounds");
+			GridSpace v = new GridSpace(-5, -5);
+			v.setState(-5);
+			return v;
+		} else {
+			return grid[y][x];
+			//this.show();
+		}
+		//this.run();
+	}
+	
 	private void revealAll() {
 		for(int i = 0; i < grid.length; i++) {
 			for(int j = 0; j < grid[i].length; j++) {
@@ -64,10 +77,10 @@ public class Grid {
 	
 	public boolean revealZeros() {
 		boolean retur = false;
-		for(int i = 0; i < grid.length; i++) {
-			for(int j = 0; j < grid[i].length; j++) {
-				if(grid[i][j].getState() == 0 && grid[i][j].getbombs() == 0) {
-					for(GridSpace a: getNeighbors(i, j)) {
+		for(int y = 0; y < grid.length; y++) {
+			for(int x = 0; x < grid[y].length; x++) {
+				if(grid[y][x].getState() == 0 && grid[y][x].getbombs() == 0) {
+					for(GridSpace a: getNeighbors(x, y)) {
 						if(a.getState() == 2) {
 							retur = true;
 							a.reveal();
@@ -250,10 +263,19 @@ public class Grid {
 		for(int i = -1; i < 2; i++) {
 			for(int j = -1; j < 2; j++) {
 				if(!(i == j && i == 0 || x + i < 0 || y + j < 0 || y + j > grid.length - 1 || x + i > grid[0].length - 1))
-					a[--len] = grid[x+i][y+j];
+					a[--len] = grid[y+j][x+i];
 			}
 		}
 		return a;
+	}
+	
+	public int getNeighborflags(int x, int y) {
+		int r = 0;
+		for(GridSpace u : getNeighbors(x, y)) {
+			if(u.getState() > 3)
+				r++;
+		}
+		return r;
 	}
 	
 	public void show() {
