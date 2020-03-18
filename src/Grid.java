@@ -65,7 +65,7 @@ public class Grid {
 		//this.run();
 	}
 	
-	private void revealAll() {
+	public void revealAll() {
 		for(int i = 0; i < grid.length; i++) {
 			for(int j = 0; j < grid[i].length; j++) {
 				if(grid[i][j].getState() > 3)
@@ -98,12 +98,12 @@ public class Grid {
 			//this.show();
 		} else {
 			grid[y][x].reveal();
-			if(grid[y][x].getState() == 1) {
-				System.out.println("YOU LOSE :(");
-				revealAll();
-				//this.show();
-				//return;
-			}
+//			if(grid[y][x].getState() == 1) {
+//				System.out.println("YOU LOSE :(");
+//				revealAll();
+//				//this.show();
+//				//return;
+//			}
 //			} else if(grid[y][x].getState() == 0 && grid[y][x].getbombs() == 0) {
 //				reveal(x + 1, y + 1);
 //				reveal(x + 1, y);
@@ -278,8 +278,85 @@ public class Grid {
 		return r;
 	}
 	
+	
 	public void show() {
 		System.out.println(bombsLeft);
 		MineMain.printArrays(grid);
 	}
+	
+	public boolean winState() {
+		for(int y = 0; y < grid.length; y++) {
+			for(int x = 0; x < grid[y].length; x++) {
+				if(grid[y][x].getState() == 1 || grid[y][x].getState() == 2 || grid[y][x].getState() == 4) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	public boolean failState() {
+		for(int y = 0; y < grid.length; y++) {
+			for(int x = 0; x < grid[y].length; x++) {
+				if(grid[y][x].getState() == 1) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	public void autoWin() {
+		for(int y = 0; y < grid.length; y++) {
+			for(int x = 0; x < grid[y].length; x++) {
+				if(grid[y][x].getState() == 2 || grid[y][x].getState() == 4) {
+					grid[y][x].setState(0);
+				}
+			}
+		}
+	}
+	public void autoFlag() {
+		for(int y = 0; y < grid.length; y++) {
+			for(int x = 0; x < grid[y].length; x++) {
+				if(grid[y][x].getState() == 3) {
+					grid[y][x].setState(3);
+					flag(x, y);
+				}
+			}
+		}
+	}
+	public void autoLose() {
+		for(int y = 0; y < grid.length; y++) {
+			for(int x = 0; x < grid[y].length; x++) {
+				if(grid[y][x].getState() == 3 || grid[y][x].getState() == 5) {
+					grid[y][x].setState(3);
+					reveal(x, y);
+					return;
+				}
+			}
+		}
+	}
+	public void auto(int x, int y) {
+		if(this.get(x, y).getState() == 2) {
+			reveal(x, y);
+		} else if(this.get(x, y).getState() == 3) {
+			flag(x, y);
+		} else if(this.get(x, y).getState() == 4) {
+			flag(x, y);
+			reveal(x, y);
+		} else if(this.get(x, y).getState() == 0) {
+			//if(this.getNeighborflags(x, y) == get(x, y).getbombs()) {
+				for(GridSpace u:this.getNeighbors(x, y)) {
+					if(u.getState() == 2)
+						u.reveal();
+					if(u.getState() == 4) {
+						flag(u.getX(), u.getY());
+						u.reveal();
+					}
+					if(u.getState() == 3) {
+						flag(u.getX(), u.getY());
+					}
+				}
+			//}
+		}
+	}
+	
 }

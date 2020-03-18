@@ -5,7 +5,8 @@ import java.awt.event.*;
 
 public class MineMain extends JApplet implements MouseListener, KeyListener, MouseMotionListener{
 
-	Grid G = new Grid(25, 25, 99);
+	int bombs = 99;
+	Grid G = new Grid(25, 25, bombs);
 	int mouseX;
 	int mouseY;
 	
@@ -36,6 +37,16 @@ public class MineMain extends JApplet implements MouseListener, KeyListener, Mou
 	public void paint(Graphics g) {
 		g.setColor(Color.black);
 		g.fillRect(0, 0, getWidth(), getHeight());
+		
+		if(G.winState()) {
+			G.autoFlag();
+			g.setColor(Color.green);
+			g.drawString("YOU WIN!", (int)(getWidth()/2.2), 15);
+		} else if(G.failState()) {
+			G.revealAll();
+			g.setColor(Color.red);
+			g.drawString("YOU LOSE!", (int)(getWidth()/2.2), 15);
+		}
 		
 		g.setColor(Color.red);
 		g.drawString("" + G.getBombs(), 5, 15);
@@ -69,7 +80,6 @@ public class MineMain extends JApplet implements MouseListener, KeyListener, Mou
 				}
 			}
 		}
-		
 	}
 	
 	public static void printArrays(Object[][] ob) {
@@ -152,11 +162,17 @@ public class MineMain extends JApplet implements MouseListener, KeyListener, Mou
 						//u.reveal();
 					}
 				}
-				while(G.revealZeros()) { }
 			}
 		} else if((c.getKeyChar() + "").equals("r")) {
-			G = new Grid(25, 25, 99);
+			G = new Grid(25, 25, bombs);
+		} else if((c.getKeyChar() + "").equals("1")) {
+			G.autoWin();
+		} else if((c.getKeyChar() + "").equals("2")) {
+			G.autoLose();
+		} else if((c.getKeyChar() + "").equals("h")) {
+			G.auto((mouseX - 20)/((getWidth() - 40)/G.getGrid()[0].length), (mouseY - 20)/((getHeight() - 40)/G.getGrid().length));
 		}
+		while(G.revealZeros()) { }
 		repaint();
 	}
 
