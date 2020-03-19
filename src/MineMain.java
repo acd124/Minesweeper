@@ -9,9 +9,9 @@ public class MineMain extends JApplet implements MouseListener, KeyListener, Mou
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	int bombs = 300;
-	int h = 25;
-	int w = 25;
+	int bombs = 99;
+	int h = 16;
+	int w = 30;
 	Grid G = new Grid(h, w, bombs);
 	int mouseX;
 	int mouseY;
