@@ -6,7 +6,9 @@ import java.awt.event.*;
 public class MineMain extends JApplet implements MouseListener, KeyListener, MouseMotionListener{
 
 	int bombs = 99;
-	Grid G = new Grid(25, 25, bombs);
+	int h = 16;
+	int w = 30;
+	Grid G = new Grid(h, w, bombs);
 	int mouseX;
 	int mouseY;
 	
@@ -164,13 +166,14 @@ public class MineMain extends JApplet implements MouseListener, KeyListener, Mou
 				}
 			}
 		} else if((c.getKeyChar() + "").equals("r")) {
-			G = new Grid(25, 25, bombs);
+			G = new Grid(h, w, bombs);
 		} else if((c.getKeyChar() + "").equals("1")) {
 			G.autoWin();
 		} else if((c.getKeyChar() + "").equals("2")) {
 			G.autoLose();
 		} else if((c.getKeyChar() + "").equals("h")) {
 			G.auto((mouseX - 20)/((getWidth() - 40)/G.getGrid()[0].length), (mouseY - 20)/((getHeight() - 40)/G.getGrid().length));
+			System.out.println("h" + " " + mouseX + " " + mouseY);
 		}
 		while(G.revealZeros()) { }
 		repaint();
