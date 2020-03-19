@@ -5,9 +5,13 @@ import java.awt.event.*;
 
 public class MineMain extends JApplet implements MouseListener, KeyListener, MouseMotionListener{
 
-	int bombs = 99;
-	int h = 16;
-	int w = 30;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	int bombs = 300;
+	int h = 25;
+	int w = 25;
 	Grid G = new Grid(h, w, bombs);
 	int mouseX;
 	int mouseY;
@@ -16,7 +20,6 @@ public class MineMain extends JApplet implements MouseListener, KeyListener, Mou
 	 * @param args
 	 */
 //	public static void main(String[] args) {
-//		// TODO Auto-generated method stub
 //		Grid G = new Grid(5, 5, 5);
 //		G.show();
 //		G.run();
@@ -27,11 +30,18 @@ public class MineMain extends JApplet implements MouseListener, KeyListener, Mou
 	
 	public void init() {
 		setSize(640, 640);
-		setBackground(Color.black);
+		//setBackground(Color.magenta);
 		
 		addMouseListener(this);
 		addKeyListener(this);
 		addMouseMotionListener(this);
+		
+//		MenuBar mb = new MenuBar();
+//		Menu fm = new Menu("file");
+//		MenuItem easy = new MenuItem("Easy");
+//		mb.add(fm);
+//		fm.add(easy);
+//		setMenuBar(mb);
 		
 		repaint();
 	}
@@ -70,13 +80,25 @@ public class MineMain extends JApplet implements MouseListener, KeyListener, Mou
 					g.setColor(Color.blue);
 					g.fillRect(20 + b.getX()*((getWidth() - 40)/a.length), 20 + b.getY()*((getHeight() - 40)/G.getGrid().length),
 							(getWidth() - 40)/a.length, (getHeight() - 40)/G.getGrid().length);
+					g.setColor(Color.darkGray);
+					g.drawRect(20 + b.getX()*((getWidth() - 40)/a.length), 20 + b.getY()*((getHeight() - 40)/G.getGrid().length),
+							(getWidth() - 40)/a.length, (getHeight() - 40)/G.getGrid().length);
 				}
 				if(b.getState() == 1) {
+//					g.setColor(Color.black);
+//					g.fillRect(20 + b.getX()*((getWidth() - 40)/a.length), 20 + b.getY()*((getHeight() - 40)/G.getGrid().length),
+//							(getWidth() - 40)/a.length, (getHeight() - 40)/G.getGrid().length);
 					g.setColor(Color.red);
 					g.fillOval(20 + b.getX()*((getWidth() - 40)/a.length), 20 + b.getY()*((getHeight() - 40)/G.getGrid().length),
 							(getWidth() - 40)/a.length, (getHeight() - 40)/G.getGrid().length);
 				}
 				if(b.getState() == 0) {
+//					g.setColor(Color.black);
+//					g.fillRect(20 + b.getX()*((getWidth() - 40)/a.length), 20 + b.getY()*((getHeight() - 40)/G.getGrid().length),
+//							(getWidth() - 40)/a.length, (getHeight() - 40)/G.getGrid().length);
+					g.setColor(Color.darkGray);
+					g.drawRect(20 + b.getX()*((getWidth() - 40)/a.length), 20 + b.getY()*((getHeight() - 40)/G.getGrid().length),
+							(getWidth() - 40)/a.length, (getHeight() - 40)/G.getGrid().length);
 					g.setColor(Color.white);
 					g.drawString("" + b.getbombs(), 20 + (int)((b.getX() + .4)*((getWidth() - 40)/a.length)), 20 + (int)((b.getY() + .7)*((getHeight() - 40)/G.getGrid().length)));
 				}
@@ -171,8 +193,13 @@ public class MineMain extends JApplet implements MouseListener, KeyListener, Mou
 			G.autoWin();
 		} else if((c.getKeyChar() + "").equals("2")) {
 			G.autoLose();
+		} else if((c.getKeyChar() + "").equals("3")) {
+			G.autoCascade();
+		} else if((c.getKeyChar() + "").equals("s")) {
+			G.startCascade();
 		} else if((c.getKeyChar() + "").equals("h")) {
-			G.auto((mouseX - 20)/((getWidth() - 40)/G.getGrid()[0].length), (mouseY - 20)/((getHeight() - 40)/G.getGrid().length));
+			if(!(mouseX < 20 || mouseX > getWidth() - 20 || mouseY < 20 || mouseY > getHeight() - 20))
+				G.auto((mouseX - 20)/((getWidth() - 40)/G.getGrid()[0].length), (mouseY - 20)/((getHeight() - 40)/G.getGrid().length));
 			System.out.println("h" + " " + mouseX + " " + mouseY);
 		}
 		while(G.revealZeros()) { }

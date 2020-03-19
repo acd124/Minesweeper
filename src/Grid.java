@@ -6,7 +6,7 @@ public class Grid {
 	
 	public Grid(int height, int width, int bombs) {
 		grid = new GridSpace[height][width];
-		bombsLeft = 0;
+		bombsLeft = bombs < height*width ? bombs : height*width - 1;
 		for(int i = 0; i < height; i++) {
 			for(int j = 0; j < width; j++) {
 				grid[i][j] = new GridSpace(j, i);
@@ -15,9 +15,8 @@ public class Grid {
 		Randp p = new Randp(height*width);
 		for(int i = 0; i < height; i++) {
 			for(int j = 0; j < width; j++) {
-				if(p.nextInt() <= bombs) {
+				if(p.nextInt() <= bombsLeft) {
 					grid[i][j].setState(3);
-					bombsLeft++;
 				}
 			}
 		}
@@ -328,6 +327,26 @@ public class Grid {
 			for(int x = 0; x < grid[y].length; x++) {
 				if(grid[y][x].getState() == 3 || grid[y][x].getState() == 5) {
 					grid[y][x].setState(3);
+					reveal(x, y);
+					return;
+				}
+			}
+		}
+	}
+	public void autoCascade() {
+		for(int y = 0; y < grid.length; y++) {
+			for(int x = 0; x < grid[y].length; x++) {
+				if(grid[y][x].getState() == 2 && grid[y][x].getbombs() == 0) {
+					reveal(x, y);
+					while(revealZeros()) { }
+				}
+			}
+		}
+	}
+	public void startCascade() {
+		for(int y = 0; y < grid.length; y++) {
+			for(int x = 0; x < grid[y].length; x++) {
+				if(grid[y][x].getState() == 2 && grid[y][x].getbombs() == 0) {
 					reveal(x, y);
 					return;
 				}
