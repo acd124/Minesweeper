@@ -99,11 +99,16 @@ public class MineMain extends JApplet implements MouseListener, KeyListener, Mou
 					g.setColor(Color.darkGray);
 					g.drawRect(20 + b.getX()*((getWidth() - 40)/a.length), 20 + b.getY()*((getHeight() - 40)/G.getGrid().length),
 							(getWidth() - 40)/a.length, (getHeight() - 40)/G.getGrid().length);
-					g.setColor(Color.white);
+					g.setColor(numColor(b.getbombs()));
 					g.drawString("" + b.getbombs(), 20 + (int)((b.getX() + .4)*((getWidth() - 40)/a.length)), 20 + (int)((b.getY() + .7)*((getHeight() - 40)/G.getGrid().length)));
 				}
 			}
 		}
+	}
+	
+	public static Color numColor(int num) {
+		Color[] things = { Color.black, Color.blue, Color.green, Color.red, Color.blue, Color.red, Color.cyan, Color.darkGray, Color.gray };
+		return things[num];
 	}
 	
 	public static void printArrays(Object[][] ob) {
@@ -158,19 +163,19 @@ public class MineMain extends JApplet implements MouseListener, KeyListener, Mou
 	}
 
 	@Override
-	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void keyTyped(KeyEvent c) {
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyPressed(KeyEvent c) {
 		//Point e = MouseInfo.getPointerInfo().getLocation();
 		if((c.getKeyChar() + "").equals(" ")) {
 			System.out.println("space" + " " + mouseX + " " + mouseY);
