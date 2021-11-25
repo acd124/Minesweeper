@@ -6,6 +6,7 @@ body:
   - type: checkboxes
     id: browser
     attributes:
+      label: Browser(s)
       description: Which browsers does this affect?
       options:
         - label: Chrome
