@@ -55,9 +55,9 @@ body:
       label: Steps to Reproduce
       description: How could someone reproduce this bug?
       value: |
-        1.
-        2.
-        3.
+        1. 
+        2. 
+        3. 
         ...
     validations:
       required: true
