@@ -3,17 +3,15 @@ description: For any issue related to a bug
 title: "[Area] - Short Description"
 labels: [bug]
 body:
-  - type: dropdown
+  - type: checkbox
     id: browser
     attributes:
-      label: Browser(s)
       description: Which browsers does this affect?
-      multiple: true
       options:
-        - Chrome
-        - Firefox
-        - Safari
-        - Other (specify below)
+        - label: Chrome
+        - label: Firefox
+        - label: Safari
+        - label: Other (specify below)
   - type: dropdown
     id: platform
     attributes:
