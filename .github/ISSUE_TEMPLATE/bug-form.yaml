@@ -22,7 +22,11 @@ body:
     attributes:
       label: Steps to Reproduce
       description: How could someone reproduce this bug?
-      placeholder: "1.\n2.\n3.\n..."
+      value: |
+        1.
+        2.
+        3.
+        ...
     validations:
       required: true
   - type: textarea
