@@ -13,7 +13,7 @@ body:
         - Chrome
         - Firefox
         - Safari
-        - Other
+        - Other (specify in observed behavior)
   - type: dropdown
     id: platform
     attributes:
@@ -24,7 +24,7 @@ body:
         - Desktop
         - IOS
         - Android
-        - Other
+        - Other (specify in observed behavior)
   - type: dropdown
     id: version
     attributes:
@@ -34,7 +34,7 @@ body:
       options:
         - main
         - production
-        - other
+        - other (specify in observed behavior)
   - type: textarea
     id: observed-behavior
     attributes:
