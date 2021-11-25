@@ -22,6 +22,6 @@ body:
     attributes:
       label: Tickets
       description: What tickets will be a part of this epic?
-      value: " - [] \n - [] "
+      value: " - [ ] \n - [ ] "
     validations:
       required: true
