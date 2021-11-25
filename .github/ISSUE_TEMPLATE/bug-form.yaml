@@ -1,5 +1,7 @@
 name: Bug
 description: For any issue related to a bug
+title: "[Area] - Short Description"
+labels: [bug]
 body:
   - type: textarea
     id: observed-behavior
@@ -21,10 +23,10 @@ body:
       label: Steps to Reproduce
       description: How could someone reproduce this bug?
       placeholder: |
-       1.
-       2.
-       3.
-       ...
+        1.
+        2.
+        3.
+        ...
     validations:
       required: true
   - type: textarea
