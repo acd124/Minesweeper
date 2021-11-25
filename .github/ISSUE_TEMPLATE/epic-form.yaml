@@ -1,7 +1,7 @@
 name: Epic
 description: A grouping of many issues
 title: "[Area] - Short Description"
-labels: [epic]
+labels: [epic ticket]
 body:
   - type: textarea
     id: user-stories
