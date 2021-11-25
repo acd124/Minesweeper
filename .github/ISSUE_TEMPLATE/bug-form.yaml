@@ -13,7 +13,7 @@ body:
         - Chrome
         - Firefox
         - Safari
-        - Other (specify in observed behavior)
+        - Other (specify below)
   - type: dropdown
     id: platform
     attributes:
@@ -24,7 +24,7 @@ body:
         - Desktop
         - IOS
         - Android
-        - Other (specify in observed behavior)
+        - Other (specify below)
   - type: dropdown
     id: version
     attributes:
@@ -34,7 +34,7 @@ body:
       options:
         - main
         - production
-        - other (specify in observed behavior)
+        - other (specify below)
   - type: textarea
     id: observed-behavior
     attributes:
@@ -54,10 +54,7 @@ body:
     attributes:
       label: Steps to Reproduce
       description: How could someone reproduce this bug?
-      value: |
-        1. 
-        2. 
-        3. 
+      value: "1. \n2. \n3. "
     validations:
       required: true
   - type: textarea
