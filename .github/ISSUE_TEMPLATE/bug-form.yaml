@@ -3,7 +3,7 @@ description: For any issue related to a bug
 title: "[Area] - Short Description"
 labels: [bug]
 body:
-  - type: checkbox
+  - type: checkboxes
     id: browser
     attributes:
       description: Which browsers does this affect?
