@@ -3,6 +3,38 @@ description: For any issue related to a bug
 title: "[Area] - Short Description"
 labels: [bug]
 body:
+  - type: dropdown
+    id: browser
+    attributes:
+      label: Browser(s)
+      description: Which browsers does this affect?
+      multiple: true
+      options:
+        - Chrome
+        - Firefox
+        - Safari
+        - Other
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform(s)
+      description: Which platforms does this affect?
+      multiple: true
+      options:
+        - Desktop
+        - IOS
+        - Android
+        - Other
+  - type: dropdown
+    id: version
+    attributes:
+      label: Version(s)
+      description: Which versions of the application does this affect?
+      multiple: true
+      options:
+        - main
+        - production
+        - other
   - type: textarea
     id: observed-behavior
     attributes:
