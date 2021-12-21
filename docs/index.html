@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Guess my City</title>
+    </head>
+    <body>
+        <div id="question"></div>
+        <input type="text" name="answer" id="answer" />
+    </body>
+    <script>
+        // Ask some random questions to pretend to do something while checking the ip address
+        const res = fetch(`https://ipapi.co/json/`);
+        const questions = [
+            'What is your favorite color?',
+            'Why are you here?',
+            'What is the meaning of life?'
+        ];
+        document.getElementById('question').innerText = questions.shift();
+        document.getElementById('answer').onkeypress = function (e) {
+            if (e.keyCode === 13) {
+                if (questions.length) {
+                    document.getElementById('question').innerText = questions.shift();
+                    document.getElementById('answer').value = '';
+                } else {
+                    res.then(res => res.json()).then(loc =>
+                        document.write(loc.city + ', ' + loc.region)
+                    );
+                }
+            }
+        };
+    </script>
+</html>
