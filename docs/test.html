@@ -22,6 +22,7 @@
         document.getElementById('answer').onkeypress = function (e) {
             if (e.keyCode === 13) {
                 if (questions.length) {
+                    console.log(document.getElementById('answer').value);
                     document.getElementById('question').innerText = questions.shift();
                     document.getElementById('answer').value = '';
                 } else {
